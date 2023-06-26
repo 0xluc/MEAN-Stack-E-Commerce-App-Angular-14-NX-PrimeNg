@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-var mysql = require('mysql')
+var mysql = require('mysql2')
 require('dotenv/config')
 
 const connection = mysql.createConnection({
@@ -9,8 +9,7 @@ const connection = mysql.createConnection({
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    socketPath: process.env.DB_SOCKET
+    database: process.env.DB_NAME
 })
 
 connection.connect(function(err) {
@@ -34,7 +33,7 @@ app.get(`${api}/products`, (req, res) => {
 
 app.post(`${api}/products`, (req, res) => {
     const newProduct = req.body
-    console.log(newProduct)
+    console.log(newProduct) 
     res.send(newProduct)
 })
 
