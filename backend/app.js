@@ -1,7 +1,14 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
+var mysql = require('mysql')
 require('dotenv/config')
+
+const connection = mysql.createConnection({
+    
+})
+
+
 
 const api = process.env.API_URL
 
