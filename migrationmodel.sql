@@ -37,3 +37,29 @@ CREATE TABLE users (
     zip VARCHAR(20),
     apartment VARCHAR(20)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE orders (
+    id BIGINT(3) PRIMARY KEY AUTO_INCREMENT,
+    status VARCHAR(1),  
+    shippingAddress1 VARCHAR(100),
+    shippingAddress2 VARCHAR(100),
+    city VARCHAR(50),
+    zip VARCHAR(20),
+    country VARCHAR(50),
+    phone VARCHAR(20),
+    totalPrice DECIMAL(14,2),
+    user BIGINT(3),
+    dataOrdered TIMESTAMP
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE orders ADD FOREIGN KEY (user) REFERENCES users (id);
+
+CREATE TABLE order_items (
+    order_id BIGINT(3) NOT NULL,
+    product_id BIGINT(2) NOT NULL,
+    quantity BIGINT(3) NOT NULL,
+    PRIMARY KEY (order_id, product_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE order_items ADD FOREIGN KEY (order_id) REFERENCES orders (id);
+ALTER TABLE order_items ADD FOREIGN KEY (product_id) REFERENCES products (id);
