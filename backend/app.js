@@ -3,20 +3,18 @@ const app = express()
 const morgan = require('morgan')
 require('dotenv/config')
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: process.env.DB_URL,
-    dialect: 'mysql'    
-})
-
+const sequelize = require('./db')
 const Product = require('./models/product') 
+
 const getAllProducts = async (req, res) => {
-  try {
-    const products = await Product.findAll();
-    res.json(products);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+    sequelize.sync().then(() => {
+        Product.findAll().then(prod => {
+            res.json(prod)
+        }).catch((error) =>{
+            console.log(error)
+            res.status(500).json({error: 'Internal server error'})
+        })
+    })
 };
 
 

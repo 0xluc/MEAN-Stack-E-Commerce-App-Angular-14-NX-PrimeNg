@@ -1,18 +1,7 @@
 'use strict';
-const Sequelize = require('sequelize');
+const { Sequelize, Model, DataTypes } = require('sequelize');
 const sequelize = require('../db');
-module.exports = (sequelize, DataTypes) => {
-  class product extends Sequelize.Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  }
-  product.init({
+const Product = sequelize.define("products",{
     id: { type: DataTypes.BIGINT(2),
         primaryKey: true,
         autoIncrement: true
@@ -44,7 +33,12 @@ module.exports = (sequelize, DataTypes) => {
     images: DataTypes.JSON
   }, {
     sequelize,
-    modelName: 'product',
+    modelName: 'products',
   });
-  return product;
-};
+
+sequelize.sync().then(() => {
+    console.log('Book table created successfully!');
+ }).catch((error) => {
+    console.error('Unable to create table : ', error);
+ });
+module.exports = Product
