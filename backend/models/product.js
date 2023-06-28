@@ -37,7 +37,7 @@ const Product = sequelize.define("products",{
   });
 
 sequelize.sync().then(() => {
-    console.log('Book table created successfully!');
+    console.log('Products table created successfully!');
  }).catch((error) => {
     console.error('Unable to create table : ', error);
  });

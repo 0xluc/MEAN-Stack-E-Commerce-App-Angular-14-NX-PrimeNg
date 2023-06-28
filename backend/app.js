@@ -29,25 +29,25 @@ app.post(`${api}/products`, async (req, res) => {
     const product = {
         name: req.body.req,
         image: req.body.image,
-        brand: req.body.image,
-        price: req.body.image,
+        brand: req.body.brand,
+        price: req.body.price,
         rating: req.body.rating,
-        numReviews: req.body.numReviews,
-        isFeatured: req.body.isFeatured,
+        numreviews: req.body.numreviews,
+        isfeatured: req.body.isfeatured,
         description: req.body.description,
         category: req.body.category,
         reviews: req.body.reviews,
-        countInStock: req.body.countInStock,
-        richDescription: req.body.richDescription,
+        countinstock: req.body.countinstock,
+        richdescription: req.body.richdescription,
         images: req.body.images
     }
-    console.log(newProduct) 
-    await Product.create(product).then((productAdded) => {
-        console.log("Added product id:", productAdded.id)
-        res.send(newProduct)
+    console.log(product)
+    await Product.create(product).then((productadded) => {
+        console.log("added product id:", productadded.id)
+        res.status(200).json(productadded)
     }).catch((error) =>{
         console.log(error)
-        res.status(500).json({error: 'Internal server error'})
+        res.status(500).json({error: 'internal server error'})
     })
 })
 
