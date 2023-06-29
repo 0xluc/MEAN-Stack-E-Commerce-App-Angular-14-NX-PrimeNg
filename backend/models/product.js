@@ -1,5 +1,5 @@
 'use strict';
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 const Product = sequelize.define("products",{
     id: { type: DataTypes.BIGINT(2),

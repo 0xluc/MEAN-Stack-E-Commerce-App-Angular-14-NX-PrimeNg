@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const sequelize = require('../db')
-
 const Product = require('../models/product') 
+
 const getAllProducts = async (req, res) => {
     sequelize.sync().then(() => {
         Product.findAll().then(prod => {
