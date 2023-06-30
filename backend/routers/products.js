@@ -6,7 +6,13 @@ const Category = require('../models/categories')
 
 const getAllProducts = async (req, res) => {
     sequelize.sync().then(() => {
-        Product.findAll().then(prod => {
+        Product.findAll({
+            attributes: ['name', 'image'],
+            include: [{
+                model: Category,
+                attributes: ['name']
+            }]
+        }).then(prod => {
             res.json(prod)
         }).catch((error) =>{
             console.log(error)
@@ -50,6 +56,20 @@ router.post(`/`, async (req, res) => {
         console.log(error)
         res.status(500).json({error: 'internal server error'})
     })
+})
+router.get(`/:id`, async (req, res) => {
+    const product = await Product.findOne({
+        where: {
+            id: req.params.id
+        },
+        include: {
+            model: Category, attributes: ['name']
+        }
+    })
+    if(!product){
+        res.status(404).json({error: 'product not found'})
+    }
+    res.json(product)
 })
 
 module.exports = router

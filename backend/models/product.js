@@ -1,6 +1,8 @@
 'use strict';
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
+const Category = require('../models/categories');
+    
 const Product = sequelize.define("products",{
     id: { type: DataTypes.BIGINT(2),
         primaryKey: true,
