@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const sequelize = require('../db')
 const Product = require('../models/product') 
+const Category = require('../models/categories')
 
 const getAllProducts = async (req, res) => {
     sequelize.sync().then(() => {
@@ -18,6 +19,14 @@ const getAllProducts = async (req, res) => {
 
 router.get(`/`, getAllProducts)
 router.post(`/`, async (req, res) => {
+    const category = await Category.findaOne({
+        where: {
+            id: req.body.category
+        }
+    })
+    if(!category){
+        res.status(404).json({error: 'category not found'})
+    }
     const product = {
         name: req.body.req,
         image: req.body.image,
