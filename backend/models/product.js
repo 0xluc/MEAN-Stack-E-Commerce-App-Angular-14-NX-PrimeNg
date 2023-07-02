@@ -25,7 +25,7 @@ const Product = sequelize.define("products",{
     category: {
         type: DataTypes.BIGINT(2),
         references: {
-            model: 'category',
+            model: Category,
             key: 'id'
         }
     },
@@ -36,7 +36,9 @@ const Product = sequelize.define("products",{
   }, {
     sequelize,
     modelName: 'products',
+      tableName: 'products'
   });
+Product.belongsTo(Category, {foreignKey: 'category', as: 'productCategory'});
 
 sequelize.sync().then(() => {
     console.log('Products table created successfully!');

@@ -1,7 +1,7 @@
 'use strict';
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
-const Category = sequelize.define('category', {
+const Category = sequelize.define('categories', {
     id: {
     type: DataTypes.BIGINT(2),
     primaryKey: true,
@@ -19,8 +19,10 @@ const Category = sequelize.define('category', {
     }
 }, {
     sequelize,
-    modelName: 'category',
+    modelName: 'categories',
+    tableName: 'categories'
 })
+
 sequelize.sync().then(() => {
     console.log('Categories table created successfully!');
  }).catch((error) => {
