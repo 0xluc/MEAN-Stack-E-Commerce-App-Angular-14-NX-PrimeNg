@@ -1,6 +1,7 @@
 'use strict';
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
+const Order_Items = require('./orderItems');
 const Order = sequelize.define("orders",{
     id: {
         type: DataTypes.BIGINT(3),
@@ -57,6 +58,10 @@ const Order = sequelize.define("orders",{
         sequelize,
         modelName:'orders'
     })
+Order.hasMany(Order_Items, {
+  foreignKey: 'order_id',
+  sourceKey: 'id',
+});
 
 sequelize.sync().then(() => {
     console.log('Orders table created successfully!');
