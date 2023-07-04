@@ -4,6 +4,8 @@ const sequelize = require('../db')
 const Order = require('../models/orders')
 const Order_Items = require('../models/orderItems')
 const Product = require('../models/product')
+const User = require('../models/users')
+const Category = require('../models/categories')
 
 const getAllOrders = async (req,res) => {
     sequelize.sync().then(() => {
@@ -19,6 +21,68 @@ const getAllOrders = async (req,res) => {
 }
 
 router.get(`/`, getAllOrders)
+router.get('/:id', async (req, res) => {
+    try{
+        const order = await Order.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User, attributes: ['id', 'name', 'email'], as:'userInfo'
+                },
+                {
+                    model: Order_Items, 
+                    include: [
+                        {
+                            model: Product,
+                            include: [
+                                {
+                                    model: Category, as: 'productCategory'
+                                }
+                            ]
+                        }    
+                    ]
+                }
+            ]
+        })
+        if (!order){
+            return res.status(404).json({error: 'Order not found'})
+        }
+        res.send(order)
+    } catch (error){
+        console.log(error)
+        res.status(500).json({error: 'Internal server error'})
+    }
+})
+router.get('/get/userorders/:userid', async (req, res) => {
+    try{
+        const userOrderList = await Order.findAll({
+            where: {
+                user: req.params.userid
+            },
+            include: [
+                {
+                    model: Order_Items,
+                    include: [
+                        {
+                            model: Product,
+                            include: [
+                                {
+                                    model: Category, as: 'productCategory'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        })
+        if(!userOrderList){
+            return res.status(404).json({error: 'Order not found'})
+        }
+        res.send(userOrderList)
+    } catch (error){
+        console.log(error)
+        res.status(500).json({error: 'Internal server error'})
+    }
+})
 router.post(`/`, async (req, res) => {
     try{
         let orderAdded
@@ -116,6 +180,21 @@ router.delete('/:id', async (req, res) => {
         
     } catch (error) {
         console.log(error)
+    }
+})
+
+router.get('/get/totalsales', async (req, res) => {
+    try {
+        const totalsales = await sequelize.query(
+            `SELECT SUM(totalPrice) as totalsales FROM orders`,
+            {
+                type: sequelize.QueryTypes.SELECT
+            }
+        )
+        res.json(totalsales)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({error: 'Internal server error'})
     }
 })
 module.exports = router

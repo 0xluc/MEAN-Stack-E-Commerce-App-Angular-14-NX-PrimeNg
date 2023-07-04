@@ -2,6 +2,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 const Order_Items = require('./orderItems');
+const User = require('./users');
 const Order = sequelize.define("orders",{
     id: {
         type: DataTypes.BIGINT(3),
@@ -62,6 +63,12 @@ Order.hasMany(Order_Items, {
   foreignKey: 'order_id',
   sourceKey: 'id',
 });
+// create the representation of the user foreign key
+Order.belongsTo(User,{
+  foreignKey: 'user',
+  as: 'userInfo',
+  targetKey: 'id',
+})
 
 sequelize.sync().then(() => {
     console.log('Orders table created successfully!');

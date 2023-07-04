@@ -25,8 +25,7 @@ const Order_Items = sequelize.define('orderItems', {
     tableName: 'order_items'
 })
 
-
-
+Order_Items.belongsTo(Product, {foreignKey: 'product_id', onDelete: 'CASCADE'})
 sequelize.sync().then(() => {
     console.log('Order_items table created sucessfully!')
 }).catch((error) => {

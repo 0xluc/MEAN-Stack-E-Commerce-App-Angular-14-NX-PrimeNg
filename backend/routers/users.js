@@ -168,7 +168,7 @@ router.post("/login", async (req, res) => {
                 isAdmin: user.isAdmin
             }, 
             process.env.JWT_SECRET, {
-                expiresIn: "1h",
+                expiresIn: "1d",
         });
         res.status(200).json({ user: user.email, token: token });
       } else {
