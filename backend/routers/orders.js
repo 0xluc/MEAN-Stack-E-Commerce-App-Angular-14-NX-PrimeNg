@@ -3,6 +3,7 @@ const router = express.Router()
 const sequelize = require('../db')
 const Order = require('../models/orders')
 const Order_Items = require('../models/orderItems')
+const Product = require('../models/product')
 
 const getAllOrders = async (req,res) => {
     sequelize.sync().then(() => {
@@ -21,7 +22,13 @@ router.get(`/`, getAllOrders)
 router.post(`/`, async (req, res) => {
     try{
         let orderAdded
-        let orderItems = []
+        let totalPrice = 0
+        const promises = req.body.orderItems.map(async (orderItem) => {
+            await Product.findByPk(orderItem.product_id).then((product) => {
+                totalPrice += orderItem.quantity * parseFloat(product.price)
+            })
+        })
+        await Promise.all(promises)
         const order = {
             shippingAddress1: req.body.shippingAddress1,
             shippingAddress2: req.body.shippingAddress2,
@@ -30,13 +37,11 @@ router.post(`/`, async (req, res) => {
             country: req.body.country,
             phone: req.body.phone,
             status: req.body.status,
-            totalPrice: req.body.totalPrice,
+            totalPrice: totalPrice,
             user: req.body.user
         }
-        console.log(order)
         await Order.create(order).then((orderAd) => {
             orderAdded = orderAd
-            console.log("added order id:", orderAdded.id)
         }).then(() =>{
             req.body.orderItems.map(async (orderItem) => {
                 await Order_Items.create({
@@ -44,12 +49,13 @@ router.post(`/`, async (req, res) => {
                     product_id: orderItem.product_id,
                     quantity: orderItem.quantity
                 })
-                })
+            })
         }
         ).then(() => {
             order.orderItems = req.body.orderItems
             res.status(201).json(order)
         })
+   
     }catch(error){
         console.log(error)
         res.status(500).json({error: 'Internal server error'})
@@ -80,6 +86,36 @@ router.put('/:id', async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).json({error: 'Internal server error'})
+    }
+})
+router.delete('/:id', async (req, res) => {
+    try {
+        const order = await Order.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        if(!order){
+            res.status(404).json({error: 'order not found'})
+        }
+        else {
+            await Order.destroy({
+                where: {
+                    id: req.params.id
+                }
+            }).then( async () => {
+                await Order_Items.destroy({
+                    where: {
+                        order_id: req.params.id
+                    }
+                })
+            }).then(() =>{
+                res.status(200).json({message: 'order deleted'})
+            })
+        }
+        
+    } catch (error) {
+        console.log(error)
     }
 })
 module.exports = router
