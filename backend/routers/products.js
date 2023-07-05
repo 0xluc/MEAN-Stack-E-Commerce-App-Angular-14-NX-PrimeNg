@@ -143,11 +143,21 @@ router.put('/:id', async (req, res) => {
                 }
             })
             if(!category){
-                res.status(404).json({error: 'category not found'})
+                return res.status(404).json({error: 'category not found'})
+            }
+            const file = req.file
+            let imagePath
+
+            if(file) {
+                const fileName  = req.file.filename
+                const basePath = `${req.protocol}://${req.get('host')}/public/uploads/${fileName}`
+                imagePath = basePath
+            } else {
+                imagePath = product.image
             }
             const updatedProduct = {
                 name: req.body.req,
-                image: req.body.image,
+                image: imagePath,
                 brand: req.body.brand,
                 price: req.body.price,
                 rating: req.body.rating,
@@ -176,30 +186,30 @@ router.put('/:id', async (req, res) => {
 
 router.put('/gallery-images/:id', uploadOptions.array('images', 10),async (req, res) => {
     try{
-        const order = await Order.findOne({
+        const product = await Product.findOne({
             where: {
                 id: req.params.id
             }
         })
-        if(!order){
+        if(!product){
             return res.status(404).json({error: 'product not found'})
         }
+        let imagesPaths = []
         const files = req.files
         if(files){
             files.map((file) => {
                 imagesPaths.push(`${req.protocol}://${req.get('host')}/public/uploads/${file.filename}`)
             })
         }
-        let imagesPaths = []
         const updatedProduct = {
             images: imagesPaths
         }
-        const product = await Product.update(updatedProduct, {
+        const productUpdated = await Product.update(updatedProduct, {
             where: {
                 id: req.params.id
             }
         })
-        if(!product){
+        if(!productUpdated){
             return res.status(404).json({error: 'product not found'})
         }
         res.status(200).json(updatedProduct)
