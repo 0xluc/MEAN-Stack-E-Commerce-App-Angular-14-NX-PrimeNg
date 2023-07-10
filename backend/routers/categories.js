@@ -23,7 +23,6 @@ router.post(`/`, async (req, res) => {
     };
     console.log(category)
     await Category.create(category).then((categoryadded) => {
-        console.log("added category id:". categoryadded.id)
         res.status(200).json(categoryadded)
     }).catch((error) => {
         console.log(error)
