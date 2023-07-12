@@ -1,11 +1,11 @@
 <div class="admin-page">
-  <p-card header="Add Category" subheader="You can add a category here">
+  <p-card [header]="editMode ? 'Edit Category': 'Add Category'" subheader="You can add or edit a category here">
     <div class="grid mb-4">
        <div class="col-12">
           <p-toolbar>
             <div class="p-toolbar-group-start"></div>
             <div class="p-toolbar-group-end">
-              <p-button styleClass="p-button-primary mr-4" label="Create" icon="pi pi-plus" (click)="onSubmit()" [disabled]="!form.valid"></p-button>
+              <p-button styleClass="p-button-primary mr-4" [label]="editMode ? 'Save' : 'Create'" icon="pi pi-plus" (click)="onSubmit()" [disabled]="!form.valid"></p-button>
               <p-button styleClass="p-button-danger" label="Cancel" icon="pi pi-arrow-circle-left"></p-button>
             </div>
           </p-toolbar>

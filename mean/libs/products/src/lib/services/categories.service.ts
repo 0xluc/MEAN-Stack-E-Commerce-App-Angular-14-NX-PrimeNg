@@ -13,8 +13,14 @@ export class CategoriesService {
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.apiUrl);
   }
+  getCategory(id: string): Observable<Category> {
+    return this.http.get<Category>(`${this.apiUrl}/${id}`);
+  }
   createCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(this.apiUrl, category);
+  }
+  updateCategory(category: Category): Observable<Category> {
+    return this.http.put<Category>(`${this.apiUrl}/${category.id}`, category); 
   }
   deleteCategory(id: string): Observable<Object> {
     return this.http.delete<Category>(`${this.apiUrl}/${id}`);
