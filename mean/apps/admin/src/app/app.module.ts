@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ColorPickerModule } from 'primeng/colorpicker';
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent],
   imports: [
@@ -38,6 +39,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ToastModule,
     BrowserAnimationsModule,
     ConfirmDialogModule,
+    ColorPickerModule
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
