@@ -27,7 +27,8 @@ export class CategoriesFormComponent implements OnInit{
      this.form = this.formBuilder.group({
        name: ['', Validators.required],
        icon: ['', Validators.required],
-     }) 
+       color: ['fff']
+     })
      this._checkEditMode()
   }
   onSubmit(): void {
@@ -35,13 +36,14 @@ export class CategoriesFormComponent implements OnInit{
       const category: Category = {
         name: this.categoryForm['name'].value,
         icon: this.categoryForm['icon'].value,
+        color: this.categoryForm['color'].value
       }
       if(!this.editMode){
         this.addCategory(category)
       }
       else {
         category.id = this.currentCategoryId
-        this.editCategory(category) 
+        this.editCategory(category)
       }
     } else {
       this.messageService.add({
@@ -96,6 +98,7 @@ export class CategoriesFormComponent implements OnInit{
         this.categoriesService.getCategory(params['id']).subscribe(category => {
           this.categoryForm['name'].setValue(category.name)
           this.categoryForm['icon'].setValue(category.icon)
+          this.categoryForm['color'].setValue(category.color)
         })
       }
     })
