@@ -26,6 +26,9 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 import {  InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent, ProductsListComponent, ProductsFormComponent],
   imports: [
@@ -43,7 +46,10 @@ import {  InputNumberModule } from 'primeng/inputnumber';
     BrowserAnimationsModule,
     ConfirmDialogModule,
     ColorPickerModule,
-    InputNumberModule
+    InputNumberModule,
+    DropdownModule,
+    InputTextareaModule,
+    InputSwitchModule
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

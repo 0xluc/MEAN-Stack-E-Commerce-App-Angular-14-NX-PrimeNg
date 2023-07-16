@@ -14,24 +14,43 @@
     <div class="grid">
       <div class="col-12">
         <form [formGroup]="form">
-            <div class="formgrid grid">
+            <div class="formgrid grid p-fluid">
                 <div class="field col">
                     <label for="name">Name</label>
-                    <input formControlName="name" id="name" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input formControlName="name" id="name" type="text" pInputText>
                     <small *ngIf="productForm['name'].invalid && form.controls['name'].touched" class="p-error">Name is required</small>
                 </div>
                 <div class="field col">
                     <label for="icon">Brand</label>
-                    <input formControlName="brand" id="brand" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <input formControlName="brand" id="brand" type="text" pInputText>
                     <small *ngIf="productForm['brand'].invalid && form.controls['brand'].touched" class="p-error">Brand is required</small>
                 </div>
                 <div class="col field">
-                    <label for="price"></label>
-                    <p-inputNumber mode="decimal" inputId="withoutgrouping" formControlName="price" [useGrouping]="false"> </p-inputNumber>
+                    <label for="price">Price</label>
+                    <p-inputNumber mode="decimal" inputId="price" formControlName="price" [useGrouping]="false"> </p-inputNumber>
+                    <small *ngIf="productForm['price'].invalid && form.controls['price'].touched" class="p-error">Price is required</small>
                 </div>
-                <div class="field col">
-                  <label for="color">Color</label>
-                  <p-colorPicker formControlName="color"></p-colorPicker>
+
+            </div>
+            <div class="grid formgrid p-fluid">
+                <div class="field col-4">
+                  <label for="category">Category</label>
+                  <p-dropdown formControlName="category"  optionLabel="name" optionValue="id" [showClear]="true"></p-dropdown>
+                  <small *ngIf="productForm['category'].invalid && form.controls['category'].touched" class="p-error">Category is required</small>
+                </div>
+                <div class="col-4 field">
+                    <label for="countInStock">Count in stock</label>
+                    <p-inputNumber mode="decimal" inputId="countInStock" formControlName="countInStock" [useGrouping]="false"> </p-inputNumber>
+                    <small *ngIf="productForm['countInStock'].invalid && form.controls['countInStock'].touched" class="p-error">Count in stock is required</small>
+                </div>
+                <div class="col-4 field">
+                  <label for="isFeatured">Featured</label>
+                  <p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
+                </div>
+                <div class="field col-12">
+                    <label for="description">Description</label>
+                    <textarea formControlName="description" id="description" type="text" pInputText></textarea>
+                    <small *ngIf="productForm['description'].invalid && form.controls['description'].touched" class="p-error">Description is required</small>
                 </div>
             </div>
         </form>
