@@ -9,8 +9,11 @@ const usersRouter = require('./routers/users')
 const ordersRouter = require('./routers/orders')
 const authJwt = require('./helpers/jwt')
 const api = process.env.API_URL
+const cors = require('cors')
 
 // middleware
+app.use(cors())
+app.options('*', cors())
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(authJwt())
