@@ -49,7 +49,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     InputNumberModule,
     DropdownModule,
     InputTextareaModule,
-    InputSwitchModule
+    InputSwitchModule,
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

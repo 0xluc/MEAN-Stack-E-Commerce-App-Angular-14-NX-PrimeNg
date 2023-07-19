@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CategoriesService, Category } from '@mean/products';
 
 @Component({
   selector: 'mean-products-form',
@@ -11,12 +12,14 @@ export class ProductsFormComponent implements OnInit{
 
   editMode = false
   form: FormGroup
-
+  categories: Category[] = []
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private categoriesService: CategoriesService
   ) { }
   ngOnInit(): void {
       this._initForm()
+      this._getCategories()
   }
   onSubmit(){}
   private _initForm(){
@@ -32,7 +35,13 @@ export class ProductsFormComponent implements OnInit{
       isFeatured: ['',Validators.required],
     })
   }
+  private _getCategories(){
+    this.categoriesService.getCategories().subscribe(categories => {
+      this.categories = categories
+    })
+  }
   get productForm(){
     return this.form.controls
   }
+
 }
