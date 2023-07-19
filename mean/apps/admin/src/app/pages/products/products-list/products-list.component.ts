@@ -20,7 +20,7 @@ export class ProductsListComponent implements OnInit{
   deleteProduct(arg0: any) {
   }
   updateProduct(id: string) {
-    this.router.navigateByUrl('/categories/form/' + id)
+    this.router.navigateByUrl('/products/form/' + id)
   }
   private _getProducts() {
     this.productService.getProducts().subscribe(products => {

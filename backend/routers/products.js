@@ -69,7 +69,7 @@ router.get(`/`, getAllProducts)
 router.post(`/`, uploadOptions.single('image'),async (req, res) => {
     const category = await Category.findOne({
         where: {
-            id: req.body.category
+            id: req.body.productCategory
         }
     })
     if(!category){
@@ -88,11 +88,11 @@ router.post(`/`, uploadOptions.single('image'),async (req, res) => {
         numreviews: req.body.numreviews,
         isfeatured: req.body.isfeatured,
         description: req.body.description,
-        category: req.body.category,
+        category: req.body.productCategory,
         reviews: req.body.reviews,
         countinstock: req.body.countinstock,
         richdescription: req.body.richdescription,
-        images: req.body.images
+        images: req.body.images,
     }
     console.log(product)
     await Product.create(product).then((productadded) => {

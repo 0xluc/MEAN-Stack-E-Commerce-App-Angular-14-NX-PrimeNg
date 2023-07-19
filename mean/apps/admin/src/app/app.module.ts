@@ -29,6 +29,7 @@ import {  InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { EditorModule } from 'primeng/editor';
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent, ProductsListComponent, ProductsFormComponent],
   imports: [
@@ -50,6 +51,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     DropdownModule,
     InputTextareaModule,
     InputSwitchModule,
+    EditorModule
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

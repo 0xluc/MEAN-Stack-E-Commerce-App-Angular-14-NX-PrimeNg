@@ -52,9 +52,21 @@
                     <textarea formControlName="description" id="description" type="text" pInputText></textarea>
                     <small *ngIf="productForm['description'].invalid && form.controls['description'].touched" class="p-error">Description is required</small>
                 </div>
+                <div class="field col-12">
+                  <label for="richDescription">Product Details</label><br/>
+                  <p-editor formControlName="richDescription" [style]="{height: '320px'}"></p-editor>
+                </div>
+                <div class="field col-12">
+                  <label for="">Main Image</label>
+                  <input class="p-inputtext" type="file" accept="image/*" (change)="onImageUpload($event)">
+                  <div class="col-2 mt-2 pl-0">
+                    <img style="width: 100%;" [src]="imageDisplay" alt="">
+                  </div>
+                </div>
             </div>
         </form>
       </div>
     </div>
+
   </p-card>
 </div>
