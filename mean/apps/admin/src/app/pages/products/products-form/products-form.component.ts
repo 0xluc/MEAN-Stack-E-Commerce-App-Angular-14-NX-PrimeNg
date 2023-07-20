@@ -78,7 +78,7 @@ export class ProductsFormComponent implements OnInit{
       countInStock: ['',Validators.required],
       description: ['',Validators.required],
       richDescription: ['',Validators.required],
-      image: ['',],
+      image: ['', Validators.required],
       isFeatured: [false],
     })
   }
@@ -99,6 +99,8 @@ export class ProductsFormComponent implements OnInit{
           this.form.controls['image'].setValue(product.image)
           this.form.controls['category'].setValue(product.productCategory?.id)
           this.imageDisplay = product.image
+          this.form.controls.image.setValidators([])
+          this.form.controls.image.updateValueAndValidity()
         })
       }
     })
