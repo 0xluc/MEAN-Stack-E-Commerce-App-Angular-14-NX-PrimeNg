@@ -1,0 +1,40 @@
+<div class="admin-page">
+    <p-card header="Users" subheader="List of users">
+      <div class="grid">
+         <div class="col-12">
+            <p-toolbar>
+              <div class="p-toolbar-group-start">
+                <p-button styleClass="p-button-success" label="Add Category" icon="pi pi-plus" routerLink="form"></p-button>
+              </div>
+            </p-toolbar>
+         </div>
+      </div>
+      <div class="grid">
+        <div class="col-12">
+          <p-table [value]="users" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="name">Name</th>
+                <th>Email</th>
+                <th>Is Admin</th>
+                <th>Country</th>
+                <th></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-category>
+              <tr>
+                <td>{{category.id}}</td>
+                <td>{{category.name}}</td>
+                <td><i style="font-size: 2rem" [ngClass]="category.icon"></i></td>
+                <td>{{category.color}}</td>
+                <td>
+                  <p-button styleClass="p-button-info mr-2"  icon="pi pi-pencil" (click)="updateUsers(category.id)"></p-button>
+                  <p-button styleClass="p-button-danger"  icon="pi pi-trash" (click)="deleteUsers(category.id)"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-card>
+  </div>
