@@ -69,7 +69,7 @@ router.get(`/`, getAllProducts)
 router.post(`/`, uploadOptions.single('image'),async (req, res) => {
     const category = await Category.findOne({
         where: {
-            id: req.body.productCategory
+            id: req.body.category
         }
     })
     if(!category){
@@ -80,18 +80,18 @@ router.post(`/`, uploadOptions.single('image'),async (req, res) => {
     const fileName  = req.file.filename
     const basePath = `${req.protocol}://${req.get('host')}/public/uploads/${fileName}`
     const product = {
-        name: req.body.req,
+        name: req.body.name,
         image: basePath,
         brand: req.body.brand,
         price: req.body.price,
         rating: req.body.rating,
-        numreviews: req.body.numreviews,
-        isfeatured: req.body.isfeatured,
+        numReviews: req.body.numReviews,
+        isFeatured: req.body.isFeatured,
         description: req.body.description,
-        category: req.body.productCategory,
+        category: req.body.category,
         reviews: req.body.reviews,
-        countinstock: req.body.countinstock,
-        richdescription: req.body.richdescription,
+        countInStock: req.body.countInStock,
+        richDescription: req.body.richDescription,
         images: req.body.images,
     }
     console.log(product)
@@ -126,7 +126,8 @@ router.get(`/:id`, async (req, res) => {
     
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', uploadOptions.single('image'), async (req, res) => {
+    console.log(req.body)
     try {
         const product = await Product.findOne({
             where: {
@@ -137,11 +138,13 @@ router.put('/:id', async (req, res) => {
             res.status(404).json({error: 'product not found'})
         }
         else {
+            console.log(req.body)
             const category = await Category.findOne({
                 where: {
                     id: req.body.category
                 }
             })
+            console.log(category)
             if(!category){
                 return res.status(404).json({error: 'category not found'})
             }
@@ -156,18 +159,18 @@ router.put('/:id', async (req, res) => {
                 imagePath = product.image
             }
             const updatedProduct = {
-                name: req.body.req,
+                name: req.body.name,
                 image: imagePath,
                 brand: req.body.brand,
                 price: req.body.price,
                 rating: req.body.rating,
-                numreviews: req.body.numreviews,
-                isfeatured: req.body.isfeatured,
+                numReviews: req.body.numReviews,
+                isFeatured: req.body.isFeatured,
                 description: req.body.description,
                 category: req.body.category,
                 reviews: req.body.reviews,
-                countinstock: req.body.countinstock,
-                richdescription: req.body.richdescription,
+                countInStock: req.body.countInStock,
+                richDescription: req.body.richDescription,
                 images: req.body.images
             }
             await Product.update(updatedProduct, {
