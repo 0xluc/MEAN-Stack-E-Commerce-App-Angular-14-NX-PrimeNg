@@ -32,6 +32,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { EditorModule } from 'primeng/editor';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent, ProductsListComponent, ProductsFormComponent, UsersListComponent, UsersFormComponent],
   imports: [
@@ -53,7 +54,8 @@ import { UsersFormComponent } from './pages/users/users-form/users-form.componen
     DropdownModule,
     InputTextareaModule,
     InputSwitchModule,
-    EditorModule
+    EditorModule,
+    TagModule
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

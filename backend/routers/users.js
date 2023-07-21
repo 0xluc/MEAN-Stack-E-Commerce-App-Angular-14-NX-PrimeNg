@@ -151,6 +151,28 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+router.delete("/:id", async (req, res) => {
+  try{
+    const user = await User.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!user) {
+      res.status(404).json({ error: "user not found" });
+    } else {
+      await User.destroy({
+        where: {
+          id: req.params.id,
+        },
+      });
+      res.status(200).json({ message: "user deleted" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({
