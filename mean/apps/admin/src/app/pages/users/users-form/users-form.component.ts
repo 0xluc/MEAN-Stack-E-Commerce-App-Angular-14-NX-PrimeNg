@@ -6,6 +6,8 @@ import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as countriesLib from 'i18n-iso-countries';
 
+declare const require: any;
+
 @Component({
   selector: 'mean-users-form',
   templateUrl: './users-form.component.html',
@@ -14,10 +16,10 @@ import * as countriesLib from 'i18n-iso-countries';
 })
 export class UsersFormComponent implements OnInit{
   editMode = false
-  countries=[]
+  countries:any[]=[]
   form: FormGroup
   currentUserId:number
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private usersService: UsersService,
@@ -68,7 +70,13 @@ export class UsersFormComponent implements OnInit{
     return this.form.controls
   }
   private _getCountries(){
-    this.countries.
+    countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json'))
+    this.countries = Object.entries(countriesLib.getNames('en', { select: 'official' })).map((country) => {
+      return {
+        id: country[0],
+        name: country[1]
+      }
+    })
   }
   private _addUser(user: User){
     this.usersService.createUser(user).subscribe(() => {
