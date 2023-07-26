@@ -62,10 +62,11 @@ router.get("/:id", async (req, res) => {
   }
 });
 router.post(`/`, async (req, res) => {
+    console.log(req.body)
   const user = {
     name: req.body.name,
     email: req.body.email,
-    passwordHash: bcrypt.hashSync(req.body.passwordHash, 10),
+    password: await bcrypt.hashSync(req.body.password, 10),
     isAdmin: req.body.isAdmin,
     phone: req.body.phone,
     city: req.body.city,
@@ -90,7 +91,7 @@ router.post(`/register`, async (req, res) => {
   const user = {
     name: req.body.name,
     email: req.body.email,
-    passwordHash: bcrypt.hashSync(req.body.passwordHash, 10),
+    password: bcrypt.hashSync(req.body.password, 10),
     isAdmin: req.body.isAdmin,
     phone: req.body.phone,
     city: req.body.city,
@@ -122,15 +123,15 @@ router.put("/:id", async (req, res) => {
       res.status(404).json({ error: "user not found" });
     } else {
       let newPassword;
-      if (req.body.passwordHash) {
-        newPassword = bcrypt.hashSync(req.body.passwordHash, 10);
+      if (req.body.password) {
+        newPassword = bcrypt.hashSync(req.body.password, 10);
       } else {
-        newPassword = user.passwordHash;
+        newPassword = user.password;
       }
       const updatedUser = {
         name: req.body.name,
         email: req.body.email,
-        passwordHash: newPassword,
+        password: newPassword,
         isAdmin: req.body.isAdmin,
         phone: req.body.phone,
         city: req.body.city,
@@ -183,7 +184,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       res.status(404).json({ error: "User not found" });
     } else {
-      if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
+      if (bcrypt.compareSync(req.body.password, user.password)) {
         const token = jwt.sign(
             { 
                 id: user.id,

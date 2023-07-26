@@ -25,6 +25,11 @@
                         <input formControlName="email" id="email" type="text" pInputText>
                         <small *ngIf="userForm['email'].invalid && userForm['email'].touched" class="p-error">Email is invalid</small>
                     </div>
+                    <div class="field col-4">
+                        <label for="password">Password</label>
+                        <p-password formControlName="password" id="password" type="text"> </p-password>
+                        <small *ngIf="userForm['password'].invalid && userForm['password'].touched" class="p-error">Name is required</small>
+                    </div>
                     <div class="col-4 field">
                         <label for="phone">Phone</label>
                         <p-inputNumber mode="decimal" inputId="phone" formControlName="phone"> </p-inputNumber>
@@ -43,7 +48,7 @@
                         <small *ngIf="userForm['city'].invalid && userForm['city'].touched" class="p-error">City is required</small>
                     </div>
                     <div class="field col-4">
-                        <label for="category">Country</label>
+                        <label for="country">Country</label>
                         <p-dropdown [options]="countries" formControlName="country" optionLabel="name" optionValue="id" [showClear]="true" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a country"></p-dropdown>
                         <small *ngIf="userForm['country'].invalid && form.controls['country'].touched" class="p-error">Category is required</small>
                     </div>

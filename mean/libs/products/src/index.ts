@@ -5,3 +5,5 @@ export * from './lib/services/categories.service'
 export * from './lib/services/products.service'
 export * from './lib/models/user';
 export * from './lib/services/users.service'
+export * from './lib/models/order';
+export * from './lib/services/orders.service'

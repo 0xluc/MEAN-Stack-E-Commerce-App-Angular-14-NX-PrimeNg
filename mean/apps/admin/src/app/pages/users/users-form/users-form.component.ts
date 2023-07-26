@@ -47,7 +47,7 @@ export class UsersFormComponent implements OnInit{
     if(this.form.invalid) {
       return;
     }
-    const user: User = {
+    const user: any= {
       name: this.userForm.name.value,
       email: this.userForm.email.value,
       isAdmin: this.userForm.isAdmin.value,
@@ -56,7 +56,8 @@ export class UsersFormComponent implements OnInit{
       country: this.userForm.country.value,
       street: this.userForm.street.value,
       zip: this.userForm.zip.value,
-      apartment: this.userForm.apartment.value
+      apartment: this.userForm.apartment.value,
+      password: this.userForm.password.value
     }
     if(!this.editMode){
       this._addUser(user)

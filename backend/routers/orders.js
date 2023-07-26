@@ -10,7 +10,25 @@ const Category = require('../models/categories')
 const getAllOrders = async (req,res) => {
     sequelize.sync().then(() => {
         Order.findAll({
-            include: Order_Items,
+            include: [
+                {
+                    model: User, attributes: ['id', 'name', 'email'], as:'userInfo'
+                },
+                {
+                    model: Order_Items, 
+                    include: [
+                        {
+                            model: Product,
+                            include: [
+                                {
+                                    model: Category, as: 'productCategory'
+                                }
+                            ]
+                        }    
+                    ]
+                }
+            ]
+
         }).then(order => {
             res.json(order)
         }).catch((error) => {

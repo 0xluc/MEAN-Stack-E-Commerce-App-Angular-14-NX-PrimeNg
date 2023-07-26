@@ -1,0 +1,33 @@
+<div class="admin-page">
+  <p-card header="Orders" subheader="List of orders">
+    <div class="grid">
+      <div class="col-12">
+        <p-table [value]="orders" styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>User</th>
+              <th>Total price</th>
+              <th>Date ordered</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-order>
+            <tr>
+              <td>{{order.userInfo.name}}</td>
+              <td>{{order.totalPrice | currency: 'USD'}}</td>
+              <td>{{order.dataOrdered | date: 'dd/MM/yyyy'}}</td>
+              <td>
+                <p-tag [value]="orderStatus[order.status].label" [styleClass]="order.statusClass"]></p-tag>
+              </td>
+              <td>
+                <p-button styleClass="p-button-info mr-2"  icon="pi pi-pencil" (click)="showOrder(order.id)"></p-button>
+                <p-button styleClass="p-button-danger"  icon="pi pi-trash" (click)="deleteOrder(order.id)"></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </p-card>
+</div>
