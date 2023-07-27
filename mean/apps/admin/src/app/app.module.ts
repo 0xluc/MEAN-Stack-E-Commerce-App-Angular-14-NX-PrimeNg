@@ -1,3 +1,4 @@
+import { UsersModule } from './../../../../libs/users/src/lib/users.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { NgModule } from '@angular/core';
@@ -61,7 +62,8 @@ import { FieldsetModule } from 'primeng/fieldset';
     EditorModule,
     TagModule,
     PasswordModule,
-    FieldsetModule
+    FieldsetModule,
+    UsersModule
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
