@@ -12,14 +12,14 @@
         </div>
         <div class="col-4">
           <h5>Order Status</h5>
-          <p-dropdown [options]="orderStatuses" optionLabel="name" ></p-dropdown>
+          <p-dropdown (onChange)="onStatusChange($event)" [options]="orderStatuses" optionLabel="name" optionValue="id" [(ngModel)]="selectedStatus"></p-dropdown>
         </div>
         <div class="col-4">
           <h5>Order Total</h5>
           <p>{{order.totalPrice | currency: 'USD'}}</p>
         </div>
       </div>
-      
+
     </p-fieldset>
     <p-fieldset legend="Order Items" styleClass="mb-4" [toggleable]="true">
       <div class="grid mb-5">
