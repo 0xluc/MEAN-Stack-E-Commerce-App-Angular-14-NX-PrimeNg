@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LocalstorageService } from '../../services/localstorage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'users-login',
@@ -12,12 +13,18 @@ import { LocalstorageService } from '../../services/localstorage.service';
 })
 export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup
-  authMessage: string 
+  authMessage: string
 
-  constructor(private formBuilder:FormBuilder, private auth: AuthService, private messageService: MessageService, private localStorageService: LocalstorageService) { }
+  constructor(
+    private formBuilder:FormBuilder,
+    private auth: AuthService,
+    private messageService: MessageService,
+    private localStorageService: LocalstorageService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this._initLoginForm()    
+    this._initLoginForm()
   }
 
   onSubmit(){
@@ -27,10 +34,11 @@ export class LoginComponent implements OnInit {
     }
     this.auth.login(loginData.email, loginData.password).subscribe((res:any)=> {
       this.localStorageService.setToken(res.token)
+      this.router.navigate(['/'])
     }, (err: HttpErrorResponse) => {
       console.log(err)
       if(err.status !== 404){
-        this.authMessage = "Server error" 
+        this.authMessage = "Server error"
       }
       else{
         this.authMessage = "Email or password is incorrect"
@@ -39,7 +47,7 @@ export class LoginComponent implements OnInit {
        severity: 'error',
        summary: this.authMessage,
        detail: err.error.error
-     }) 
+     })
     })
   }
 
