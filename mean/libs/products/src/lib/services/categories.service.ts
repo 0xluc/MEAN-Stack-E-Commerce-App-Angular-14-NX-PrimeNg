@@ -2,7 +2,7 @@ import { environment } from '@env/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '../models/category';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,4 +26,5 @@ export class CategoriesService {
   deleteCategory(id: string): Observable<Object> {
     return this.http.delete<Category>(`${this.apiUrl}/${id}`);
   }
+ 
 }

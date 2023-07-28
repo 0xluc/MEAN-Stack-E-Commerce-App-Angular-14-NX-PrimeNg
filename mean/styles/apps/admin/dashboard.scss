@@ -1,0 +1,21 @@
+.d-item{
+    display: flex;
+    text-align: center;
+    color: #fff;
+    justify-content: space-between;
+    .pi {
+        font-size: 4em;
+        margin-bottom: 15px;
+    }
+    .name{
+        font-size: 1.4em;
+    }
+    .value{
+        margin-top: 50px;
+        font-size: 3em;
+    }
+}
+.d-orders{
+    background: rgb(238,174,202);
+background: linear-gradient(243deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 84%);
+}

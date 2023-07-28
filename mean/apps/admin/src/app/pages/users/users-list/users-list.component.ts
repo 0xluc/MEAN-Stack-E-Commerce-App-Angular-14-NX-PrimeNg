@@ -1,18 +1,19 @@
 import { Router } from '@angular/router';
 import { UsersService } from '@mean/products';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'libs/products/src/lib/models/user';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'mean-users-list',
   templateUrl: './users-list.component.html',
   styles: [
   ]
 })
-export class UsersListComponent implements OnInit{
+export class UsersListComponent implements OnInit, OnDestroy{
 
   users: User[] = []
-
+  endSub$ = new Subject<void>();
   constructor(
     private usersService: UsersService,
     private messageService: MessageService,
@@ -23,6 +24,10 @@ export class UsersListComponent implements OnInit{
   ngOnInit(): void {
     this._getUsers()
   }
+  ngOnDestroy(): void {
+    this.endSub$.next()
+    this.endSub$.complete()
+  }  
   updateUser(id: string){
     this.router.navigateByUrl('/users/form/' + id)
   }
@@ -62,7 +67,7 @@ export class UsersListComponent implements OnInit{
     })
   }
   private _getUsers(){
-    this.usersService.getUsers().subscribe((users) =>{
+    this.usersService.getUsers().pipe(takeUntil(this.endSub$)).subscribe((users) =>{
       this.users = users
     })
   }

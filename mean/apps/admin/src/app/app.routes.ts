@@ -14,7 +14,7 @@ import { AuthGuardService } from '@mean/users';
 export const appRoutes: Route[] = [
     { path: '', component: ShellComponent, canActivate: [AuthGuardService], children: [
         {
-            path: 'dashboard', component: DashboardComponent
+            path: '', component: DashboardComponent
         },
         {
             path: 'categories', component:CategoriesListComponent
@@ -51,6 +51,9 @@ export const appRoutes: Route[] = [
         }
 
         ]
+    },
+    {
+        path: '**', redirectTo: '', pathMatch: 'full'
     }
 
 ];

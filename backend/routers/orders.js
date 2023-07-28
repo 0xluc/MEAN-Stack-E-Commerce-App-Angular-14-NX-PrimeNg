@@ -200,7 +200,15 @@ router.delete('/:id', async (req, res) => {
         console.log(error)
     }
 })
-
+router.get(`/get/count`, async (req, res) => {
+    const count = await Order.count()
+    if(!count){
+        res.status(200).json({count: 0})
+    }
+    else {
+        res.status(200).json({count: count})
+    }
+})
 router.get('/get/totalsales', async (req, res) => {
     try {
         const totalsales = await sequelize.query(
@@ -209,7 +217,7 @@ router.get('/get/totalsales', async (req, res) => {
                 type: sequelize.QueryTypes.SELECT
             }
         )
-        res.json(totalsales)
+        res.status(200).json(totalsales[0])
     } catch (error) {
         console.log(error)
         res.status(500).json({error: 'Internal server error'})

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order, OrdersService } from '@mean/products';
 import { ORDER_STATUS } from '../order.constants';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -10,10 +11,11 @@ import { ORDER_STATUS } from '../order.constants';
   styles: [
   ]
 })
-export class OrdersListComponent implements OnInit {
+export class OrdersListComponent implements OnInit, OnDestroy{
 
   orders: Order[] = []
   orderStatus:any = ORDER_STATUS
+  endSub$ = new Subject<void>();
 
   constructor(
     private ordersService: OrdersService,
@@ -22,6 +24,10 @@ export class OrdersListComponent implements OnInit {
   ngOnInit(): void {
     this._getOrders()
   }
+  ngOnDestroy(): void {
+   this.endSub$.next()
+   this.endSub$.complete()
+  }
   deleteOrder(order: Order){
 
   }
@@ -29,7 +35,7 @@ export class OrdersListComponent implements OnInit {
     this.router.navigateByUrl(`orders/${order.id}`)
   }
   _getOrders(){
-    this.ordersService.getOrders().subscribe((orders) => {
+    this.ordersService.getOrders().pipe(takeUntil(this.endSub$)).subscribe((orders) => {
       this.orders = orders
     })
   }
