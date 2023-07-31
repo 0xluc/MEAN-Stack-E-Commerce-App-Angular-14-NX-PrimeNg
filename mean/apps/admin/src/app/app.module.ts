@@ -40,6 +40,7 @@ import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detai
 import { FieldsetModule } from 'primeng/fieldset';
 import { JwtInterceptor } from '@mean/users';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { ProductsSearchComponent } from 'libs/products/src/lib/components/products-search/products-search.component';
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent, CategoriesFormComponent, ProductsListComponent, ProductsFormComponent, UsersListComponent, UsersFormComponent, OrdersListComponent, OrdersDetailComponent],
@@ -66,7 +67,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     TagModule,
     PasswordModule,
     FieldsetModule,
-    UsersModule
+    UsersModule,
+    ProductsSearchComponent
   ],
   providers: [CategoriesService, MessageService, ConfirmationService, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent],

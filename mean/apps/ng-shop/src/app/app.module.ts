@@ -9,7 +9,9 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
+import { NavComponent } from './shared/nav/nav.component';
 
+import { ProductsSearchComponent } from 'libs/products/src/lib/components/products-search/products-search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +19,8 @@ import { ButtonModule } from 'primeng/button';
     ProductListComponent,
     HeaderComponent,
     FooterComponent,
+    NavComponent,
+    ProductsSearchComponent
   ],
   imports: [
     BrowserModule,
