@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { NavComponent } from './shared/nav/nav.component';
 
 import { ProductsSearchComponent } from 'libs/products/src/lib/components/products-search/products-search.component';
+import { UiModule } from '@mean/ui';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { ProductsSearchComponent } from 'libs/products/src/lib/components/produc
     BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     BrowserAnimationsModule,
-    ButtonModule
+    ButtonModule,
+    UiModule
   ],
   providers: [],
   bootstrap: [AppComponent],

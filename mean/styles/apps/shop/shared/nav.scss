@@ -6,10 +6,10 @@
     padding-top: 10px;
 
     a{
-      color: var(--surface-500);
+      color: var(--surface-800);
       cursor: pointer;
       &:hover{
-        color: var(--primary-500);
+        color: $primary-color;
       }
     }
   }
