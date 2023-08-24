@@ -11,8 +11,9 @@ import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { NavComponent } from './shared/nav/nav.component';
 
-import { ProductsSearchComponent } from 'libs/products/src/lib/components/products-search/products-search.component';
+import { ProductsModule } from 'libs/products/src/lib/products.module';
 import { UiModule } from '@mean/ui';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,14 +22,15 @@ import { UiModule } from '@mean/ui';
     HeaderComponent,
     FooterComponent,
     NavComponent,
-    ProductsSearchComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
     BrowserAnimationsModule,
     ButtonModule,
-    UiModule
+    UiModule,
+    ProductsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
