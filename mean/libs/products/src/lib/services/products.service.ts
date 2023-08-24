@@ -20,7 +20,7 @@ export class ProductsService {
     return this.http.post<Product>(this.apiUrl, productData);
   }
   updateProduct(product: FormData, id: string): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/${id}`, product); 
+    return this.http.put<Product>(`${this.apiUrl}/${id}`, product);
   }
   deleteProduct(id: string): Observable<Object> {
     return this.http.delete<Product>(`${this.apiUrl}/${id}`);
@@ -29,6 +29,9 @@ export class ProductsService {
     return this.http
       .get<number>(`${this.apiUrl}/get/count`)
       .pipe(map((objectValue: any) => objectValue.count));
+  }
+  getFeaturedProducts(count: number): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.apiUrl}/get/featured/${count}`);
   }
 }
 

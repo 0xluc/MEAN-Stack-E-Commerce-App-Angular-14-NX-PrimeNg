@@ -271,7 +271,7 @@ router.get(`/get/featured/:count`, async (req, res) => {
         if (featuredElements.length === 0) {
           res.status(404).json({ error: 'No featured elements found' });
         } else {
-          res.json({ elements: featuredElements });
+          res.status(200).json( featuredElements );
         }
     }   catch (error) {
         res.status(500).json({ error: 'Failed to retrieve featured elements' });
