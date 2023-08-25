@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'mean-product-list',
+  selector: 'products-list',
   templateUrl: './product-list.component.html',
+  styles: [
+  ]
 })
-export class ProductListComponent {}
+export class ProductListComponent {
+
+}
