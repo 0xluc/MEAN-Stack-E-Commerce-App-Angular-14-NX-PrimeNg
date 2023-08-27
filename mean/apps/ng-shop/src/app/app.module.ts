@@ -13,6 +13,7 @@ import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from 'libs/products/src/lib/products.module';
 import { UiModule } from '@mean/ui';
 import { HttpClientModule } from '@angular/common/http';
+import { OrdersModule } from '@mean/orders';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     ButtonModule,
     UiModule,
     ProductsModule,
-    HttpClientModule
+    HttpClientModule,
+    OrdersModule
   ],
   providers: [],
   bootstrap: [AppComponent],

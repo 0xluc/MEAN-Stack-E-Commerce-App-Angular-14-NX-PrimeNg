@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterModule, Route } from '@angular/router';
+import { RouterModule, Route } from '@angular/router';
 import { ordersRoutes } from './lib.routes';
+import { CartService } from './services/cart.service';
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(ordersRoutes), RouterModule],
 })
-export class OrdersModule {}
+export class OrdersModule {
+  constructor(cartService:CartService){
+    cartService.initCartLocalStorage();
+  }
+}

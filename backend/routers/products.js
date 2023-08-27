@@ -38,7 +38,6 @@ const getAllProducts = async (req, res) => {
                     [Op.or]: filter
                 }
             },
-            attributes: ['id', 'name', 'category'],
             include: {
                 model: Category, as: 'productCategory'
             }

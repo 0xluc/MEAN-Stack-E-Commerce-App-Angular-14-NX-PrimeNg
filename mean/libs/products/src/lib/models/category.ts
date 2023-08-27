@@ -1,6 +1,7 @@
 export class Category {
-    id?: number;
+    id: number;
     name?: string;
     icon?: string;
     color?: string;
+    checked?: boolean
 }
