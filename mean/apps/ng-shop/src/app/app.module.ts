@@ -14,6 +14,8 @@ import { ProductsModule } from 'libs/products/src/lib/products.module';
 import { UiModule } from '@mean/ui';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersModule } from '@mean/orders';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +32,10 @@ import { OrdersModule } from '@mean/orders';
     UiModule,
     ProductsModule,
     HttpClientModule,
-    OrdersModule
+    OrdersModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
