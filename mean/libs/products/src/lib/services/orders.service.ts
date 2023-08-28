@@ -9,6 +9,7 @@ import { Order } from '../models/order';
 export class OrdersService {
 
   apiUrl = environment.apiUrl + 'orders';
+  apiUrlProducts = environment.apiUrl + 'products';
   constructor( private http: HttpClient) {
   }
   getOrders(): Observable<Order[]> {
@@ -36,5 +37,8 @@ export class OrdersService {
     return this.http
       .get<number>(`${this.apiUrl}/get/totalsales`)
       .pipe(map((objectValue: any) => objectValue.totalsales));
+  }
+  getProduct(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrlProducts}/${id}`);
   }
 }

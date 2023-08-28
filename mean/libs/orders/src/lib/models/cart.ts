@@ -6,3 +6,7 @@ export class CartItem{
   quantity?: number
 
 }
+export class CartItemDetailed{
+  product?: any
+  quantity?: number
+}

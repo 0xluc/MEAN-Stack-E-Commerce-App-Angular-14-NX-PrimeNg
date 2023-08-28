@@ -6,35 +6,41 @@
       </div>
       <div>
         <h4>
-          My Cart: {{cartCount}} Item(s)
+          My Cart: {{ cartCount }} Item(s)
         </h4>
       </div>
       <div class="cart-shipping mb-5">
         Shipping after payment, delievery time: 1321323 hours
       </div>
-      <div class="cart-item">
-        <div class="grid">
+      <div class="cart-item mb-5" *ngFor="let cartItem of cartItemsDetailed">
+        <div class="grid p-fluid">
           <div class="col-2 cart-item-image">
-            <img src="" alt="">
+            <img [src]="cartItem.product.image" [attr.alt]="cartItem.product.name">
           </div>
           <div class="col-7">
             <div class="cart-item-name">
-              Product Name
+              {{cartItem.product.name}}
             </div>
-            <div class="cart-item-price">{{250 | currency}}</div>
+            <div class="cart-item-price">{{ cartItem.product.price | currency}}</div>
             <div class="cart-item-remove">
-              <p-button icon="pi pi-trash" (click)="removeFromCart()"></p-button>
+              <p-button icon="pi pi-trash" (click)="removeFromCart(cartItem)"></p-button>
             </div>
           </div>
           <div class="col-3">
             <div class="field cart-item-quantity">
-              <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="quantity" [min]="1" [max]="100"></p-inputNumber>
+              <p-inputNumber (onInput)="updateCartItemQuantity($event, cartItem)" [(ngModel)]="cartItem.quantity" mode="decimal" [showButtons]="true" [inputId]="cartItem.product.id" [min]="1" [max]="100"></p-inputNumber>
             </div>
-
+            <div class="cart-item-subtotal">
+              Subtotal:
+              <span class="cart-item-subtotal-value">{{ cartItem.product.price * cartItem.quantity! | currency}}</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-4"></div>
+      
     </div>
+      <div class="col-4">
+        <orders-order-summary></orders-order-summary>
+      </div>
   </div>
 </div>

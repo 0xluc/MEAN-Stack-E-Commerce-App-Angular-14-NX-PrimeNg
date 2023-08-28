@@ -28,14 +28,18 @@ export class CartService {
     const cart: Cart = JSON.parse(cartJson)
     return cart
   }
-  setCartItem(cartItem: CartItem): Cart|undefined{
+  setCartItem(cartItem: CartItem, updateCardItem?: boolean): Cart|undefined{
     if(localStorage.getItem(CART_KEY) != null && localStorage.getItem(CART_KEY) != undefined){
       const cart = this.getCart()
       const cartItemExist = cart.items!.find((item)=> item.productId === cartItem.productId)
       if(cartItemExist){
         cart.items!.map((item): CartItem | undefined=>{
           if(item.productId === cartItem.productId){
-            item.quantity! += cartItem.quantity!
+            if(updateCardItem){
+              item.quantity = cartItem.quantity
+            } else{
+              item.quantity! += cartItem.quantity!
+            }
             this.messageService.add({severity:'success', summary:'Success', detail:'Item added to cart'})
             return item
           }
@@ -51,5 +55,20 @@ export class CartService {
     }
     return undefined
 
+  }
+  deleteCartItem(productId: number){
+    const cart = this.getCart()
+    const newCart = cart.items!.filter(item => item.productId !== productId)
+    cart.items = newCart
+    localStorage.setItem(CART_KEY, JSON.stringify(cart))
+    this.cart$.next(cart)
+    this.messageService.add({severity:'success', summary:'Success', detail:'Item removed from cart'})
+  }
+  emptyCart(){
+    const initialCart = {
+      items:[]
+    }
+    localStorage.setItem(CART_KEY, JSON.stringify(initialCart))
+    this.cart$.next(initialCart)
   }
 }

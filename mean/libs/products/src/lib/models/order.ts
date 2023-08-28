@@ -24,6 +24,6 @@ export class Order {
   phone?: string;
   status?: string;
   totalPrice?: number;
-  userInfo?: userInfo;
+  userInfo?: any;
   dataOrdered?: Date;
 }

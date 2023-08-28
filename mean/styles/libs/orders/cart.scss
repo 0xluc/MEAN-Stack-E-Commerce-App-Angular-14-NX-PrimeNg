@@ -1,6 +1,9 @@
 .cart-page{
   min-height: 500px;
-
+  button{
+    background-color: $primary-color;
+    border: 0;
+  }
   .cart{
     &-shipping{
       color: var(--green-700);
@@ -10,9 +13,11 @@
       border: 1px solid var(--surface-300);
       padding: 15px;
       border-radius: 15px;
-      img{
-        height: 120px;
-        max-width: 100%
+      &-image{
+        img{
+          height: 120px;
+          max-width: 100%
+        }
       }
       &-name{
         font-weight: 600;
@@ -24,6 +29,15 @@
         font-size: 1.2rem;
         margin-bottom: 15px;
         color: $primary-color;
+      }
+      &-quantity{
+        margin: 15px 0;
+      }
+      &-subtotal{
+        font-weight: 600;
+        &-value{
+          color: var(--green-600)
+        }
       }
     }
 
